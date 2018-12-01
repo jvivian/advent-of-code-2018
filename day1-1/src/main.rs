@@ -1,3 +1,6 @@
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+
 /// After feeling like you've been falling for a few minutes, you look at the device's tiny screen.
 /// "Error: Device must be calibrated before first use. Frequency drift detected. Cannot maintain
 /// destination lock." Below the message, the device shows a sequence of changes in frequency
@@ -6,10 +9,6 @@
 ///
 /// Starting with a frequency of zero, what is the resulting frequency after all of the changes in
 /// frequency have been applied?
-
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-
 fn main() {
 
     // Open file and create BufReader object which allows iteration over lines

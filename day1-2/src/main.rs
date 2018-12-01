@@ -1,4 +1,7 @@
 use std::collections::HashMap;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+
 /// You notice that the device repeats the same frequency change list over and over. To calibrate
 /// the device, you need to find the first frequency it reaches twice.
 ///
@@ -8,10 +11,6 @@ use std::collections::HashMap;
 ///
 /// We'll use a hashmap to store a counter for each frequency and when we reach 2 we stop and
 /// display the duplicate frequency.
-
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-
 fn main() {
     let mut freq: i32 = 0;
     let mut iter_counter = 0;
@@ -42,6 +41,8 @@ fn main() {
                 return;
             }
         }
+
+        // Iter counter for funsies
         iter_counter += 1;
     }
 }
