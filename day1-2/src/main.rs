@@ -36,7 +36,7 @@ fn main() {
             let mut counter = map.entry(freq).or_insert(0);
             *counter += 1;
             if *counter == 2 {
-                println!("Duplicate frequency found {}", counter);
+                println!("Duplicate frequency found {}", freq);
                 println!("Number of iterations to reach duplicate frequency: {}", iter_counter + 1);
                 return;
             }
