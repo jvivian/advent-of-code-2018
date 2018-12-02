@@ -1,6 +1,7 @@
-use std::collections::HashMap;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::collections::HashSet;
+use std::io::{self, Read, Write};
+
+type Result<T> = std::result::Result<T, Box<std::error::Error>>;
 
 /// You notice that the device repeats the same frequency change list over and over. To calibrate
 /// the device, you need to find the first frequency it reaches twice.
@@ -11,39 +12,34 @@ use std::io::{BufRead, BufReader};
 ///
 /// We'll use a hashmap to store a counter for each frequency and when we reach 2 we stop and
 /// display the duplicate frequency.
-fn main() {
-    let mut freq: i32 = 0;
-    let mut iter_counter = 0;
-    let mut map: HashMap<i32, i32> = HashMap::new();
+fn main() -> Result<()> {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input)?;
 
-    loop {
-        let f = File::open("input")
-            .expect("Failed to open file");
-        let f = BufReader::new(f);
-
-        for line in f.lines() {
-            let line = line.expect("Failed to read line");
-
-            // Add value to frequency
-            let val: i32 = line[1..].parse().unwrap();
-            if line.chars().next().unwrap() == '+' {
-                freq += val;
-            } else {
-                freq -= val;
-            }
-
-            // Store freq in hashmap
-            let mut counter = map.entry(freq).or_insert(0);
-            *counter += 1;
-            if *counter == 2 {
-                println!("Duplicate frequency found {}", freq);
-                println!("Number of iterations to reach duplicate frequency: {}", iter_counter + 1);
-                return;
-            }
-        }
-
-        // Iter counter for funsies
-        iter_counter += 1;
-    }
+    find_duplicate_freq(&input)?;
+    Ok(())
 }
 
+
+fn find_duplicate_freq(input: &str) -> Result<i32> {
+    let mut set: HashSet<i32> = HashSet::new();
+    let mut freq = 0;
+    let mut counter = 1;
+
+    loop {
+        for line in input.lines() {
+            let val: i32 = line.parse()?;
+            freq += val;
+
+            if set.contains(&freq) {
+                writeln!(io::stdout(), "Number of input iterations: {}", counter)?;
+                writeln!(io::stdout(), "Duplicated Frequency: {}", freq)?;
+                return Ok(freq)
+            }
+
+            set.insert(freq);
+        }
+
+        counter += 1;
+    }
+}
