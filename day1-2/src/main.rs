@@ -25,7 +25,7 @@ fn main() -> Result<()> {
 fn find_duplicate_freq(input: &str) -> Result<i32> {
     let mut set: HashSet<i32> = HashSet::new();
     let mut freq = 0;
-    let mut counter = 1;
+    let mut iter_counter = 1;
 
     loop {
         for line in input.lines() {
@@ -33,12 +33,12 @@ fn find_duplicate_freq(input: &str) -> Result<i32> {
             freq += val;
 
             if set.contains(&freq) {
-                writeln!(io::stdout(), "Number of input iterations: {}", counter)?;
+                writeln!(io::stdout(), "Number of input iterations: {}", iter_counter)?;
                 writeln!(io::stdout(), "Duplicated Frequency: {}", freq)?;
                 return Ok(freq)
             }
             set.insert(freq);
         }
-        counter += 1;
+        iter_counter += 1;
     }
 }
