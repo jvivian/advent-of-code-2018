@@ -30,5 +30,3 @@ fn calculate_freq(input: &str) -> Result<i32> {
     writeln!(io::stdout(), "Frequency is: {}", freq)?;
     Ok(freq)
 }
-
-
