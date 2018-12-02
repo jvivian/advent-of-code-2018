@@ -22,7 +22,6 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-
 fn find_duplicate_freq(input: &str) -> Result<i32> {
     let mut set: HashSet<i32> = HashSet::new();
     let mut freq = 0;
@@ -38,10 +37,8 @@ fn find_duplicate_freq(input: &str) -> Result<i32> {
                 writeln!(io::stdout(), "Duplicated Frequency: {}", freq)?;
                 return Ok(freq)
             }
-
             set.insert(freq);
         }
-
         counter += 1;
     }
 }
