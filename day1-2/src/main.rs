@@ -10,7 +10,7 @@ type Result<T> = std::result::Result<T, Box<std::error::Error>>;
 /// duplicate frequency is found, and that duplicates might be found while in the middle of
 /// processing the list.
 ///
-/// We'll use a set an occurrance each frequency and when we reach 2 we stop and
+/// We'll use a set an occurrence each frequency and when we reach 2 we stop and
 /// display the duplicate frequency.
 ///
 /// Run via `cargo run --release < result`
