@@ -1,5 +1,6 @@
-use std::io::{self, Result, Read, Write};
-type Result<T> = Result<T, Box<std::error::Error>>;
+use std::io::{self, Read, Write};
+
+type Result<T> = std::result::Result<T, Box<std::error::Error>>;
 
 /// After feeling like you've been falling for a few minutes, you look at the device's tiny screen.
 /// "Error: Device must be calibrated before first use. Frequency drift detected. Cannot maintain
@@ -11,13 +12,16 @@ type Result<T> = Result<T, Box<std::error::Error>>;
 /// frequency have been applied?
 
 
-
 fn main() -> Result<()> {
-
-    let mut freq = 0;
     let mut input = String::new();
     io::stdin().read_to_string(&mut input)?;
 
+    calculate_freq(&input)?;
+    Ok(())
+}
+
+fn calculate_freq(input: &str) -> Result<i32> {
+    let mut freq = 0;
     for line in input.lines() {
         let value: i32 = line.parse()?;
         freq += value;
@@ -26,6 +30,5 @@ fn main() -> Result<()> {
     writeln!(io::stdout(), "Frequency is: {}", freq)?;
     Ok(freq)
 }
-
 
 
