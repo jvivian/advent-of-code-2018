@@ -13,14 +13,6 @@ type Result<T> = std::result::Result<T, Box<std::error::Error>>;
 /// What letters are common between the two correct box IDs?
 /// (In the example above, this is found by removing the differing character from either ID,
 /// producing fgij.)
-///
-/// Solve by: Compare every entry to every other entry
-/// Unless ==
-/// Enumerate over list twice
-/// Create a new string based on if letters are in the same position
-/// End_condition is a string that is length n-1
-/// Track largest value and key combination as a separate string
-/// Longest key should be the correct crate
 fn main() -> Result<()> {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input)?;
