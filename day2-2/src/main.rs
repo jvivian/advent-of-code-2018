@@ -47,7 +47,9 @@ fn find_crate(input: &str) -> Result<String> {
 
             if new_word.len() == crate_len {
                 let new_word: String = new_word.iter().collect();
-                writeln!(io::stdout(), "Boxes found!\nWord 1: {}\nWord 2: {}\nCombined: {}", l1, l2, new_word);
+                writeln!(io::stdout(),
+                         "Boxes found!\nWord 1: {}\nWord 2: {}\nCombined: {}",
+                         l1, l2, new_word);
                 return Ok(new_word);
             }
         }
