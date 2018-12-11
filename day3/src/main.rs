@@ -55,6 +55,7 @@ fn calculate_duplicate_squares(input: &str) -> Result<HashMap<(u32, u32), u32>> 
     }
 
     // Count number of squares that have greater than 1 value
+    // Enclosed in its own scope to avoid borrow conflict with map
     {
         let test: Vec<&u32> = map.values().filter(|&x| *x >= 2).collect();
         let overlap: u32 = test.len() as u32;
@@ -74,7 +75,6 @@ fn calculate_duplicate_squares(input: &str) -> Result<HashMap<(u32, u32), u32>> 
 /// are equal to 1.
 fn identify_non_overlap<'a>(input: &'a str, map: &'a HashMap<(u32, u32), u32>) -> Result<&'a str> {
     'outer: for line in input.lines() {
-        let mut continue_flag = false;
         let line: Vec<&str> = line.trim().split_whitespace().collect();
 
         let sample_id = line[0];
@@ -90,19 +90,15 @@ fn identify_non_overlap<'a>(input: &'a str, map: &'a HashMap<(u32, u32), u32>) -
         let right: u32 = dims[0].parse()?;
         let down: u32 = dims[1].parse()?;
 
-        // Check tuples for values greater than 1
         for i in left..left + right {
             for j in top..top + down {
-                let val: u32 = map[&(i, j)];
-                if val > 1 {
-                    continue 'outer;
-                }
+                if map[&(i, j)] > 1 { continue 'outer; }
             }
         }
 
         // If we make it here, then we've found our answer!
         writeln!(io::stdout(), "The correct ID is: {}", sample_id);
-        return Ok(sample_id)
+        return Ok(sample_id);
     }
 
     Ok("I don't know how to return Err")
